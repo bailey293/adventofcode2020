@@ -1,9 +1,3 @@
-def positionCheck(positionToCheck, lineLen):
-  returnNum = positionToCheck
-  if positionToCheck >= lineLen:
-    returnNum = positionToCheck - lineLen
-  return returnNum
-    
 inputFile = open("input", "r")
 inputList = []
 
@@ -19,7 +13,7 @@ counter = 0
 for x in inputList:
   if x[currentPos] == '#':
     counter+=1
-  currentPos = positionCheck(currentPos + 1, lineLen)
+  currentPos = (currentPos + 1)%lineLen
 counters.append(counter)
 
 counter = 0
@@ -27,7 +21,7 @@ currentPos = 0
 for x in inputList:
   if x[currentPos] == '#':
     counter+=1
-  currentPos = positionCheck(currentPos + 3, lineLen)
+  currentPos = (currentPos + 3)%lineLen
 counters.append(counter)
 
 counter = 0
@@ -35,7 +29,7 @@ currentPos = 0
 for x in inputList:
   if x[currentPos] == '#':
     counter+=1
-  currentPos = positionCheck(currentPos + 5, lineLen)
+  currentPos = (currentPos + 5)%lineLen
 counters.append(counter)
 
 counter = 0
@@ -43,21 +37,18 @@ currentPos = 0
 for x in inputList:
   if x[currentPos] == '#':
     counter+=1
-  currentPos = positionCheck(currentPos + 7, lineLen)
+  currentPos = (currentPos + 7)%lineLen
 counters.append(counter)
 
 counter = 0
 currentPos = 0
-lineCount = 1
+lineCount = 0
 for x in inputList:
   if (lineCount % 2) == 0:
-    lineCount+=1
-    currentPos = positionCheck(currentPos + 1, lineLen)
-    continue
-  if x[currentPos] == '#':
-    counter+=1
+    if x[currentPos] == '#':
+      counter+=1
+    currentPos = (currentPos + 1)%lineLen
   lineCount+=1
-  currentPos = positionCheck(currentPos + 1, lineLen)
 counters.append(counter)
 
 answer = counters[0]*counters[1]*counters[2]*counters[3]*counters[4]
